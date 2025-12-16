@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редкие книги & статьи | Читалка</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 28px;
+            color: var(--secondary-color);
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            transition: var(--transition);
+            padding: 8px 0;
+        }
+        
+        nav a:hover {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a2530 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Main Content */
+        main {
+            padding-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-title i {
+            color: var(--secondary-color);
+        }
+        
+        /* Books & Articles Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-img {
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 60px;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .card-tag {
+            display: inline-block;
+            background-color: var(--light-color);
+            color: var(--secondary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .card-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .card-button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Reader Section */
+        .reader-section {
+            margin-top: 60px;
+            padding: 40px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .reader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .reader-controls {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .reader-controls button {
+            background-color: var(--light-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .reader-controls button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .reader-content {
+            font-size: 18px;
+            line-height: 1.8;
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .reader-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            color: #777;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #eee;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--secondary-color);
+            width: 65%;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: var(--secondary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #3a506b;
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h2 {
+                font-size: 30px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+                padding: 0 20px;
+            }
+            
+            .reader-section {
+                padding: 20px;
+            }
+            
+            .reader-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .reader-footer {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .hero h2 {
+                font-size: 26px;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+            
+            .card-img {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <h1>Редкие <span>Книги</span> & Статьи</h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> Коллекция</a></li>
+                    <li><a href="#"><i class="fas fa-newspaper"></i> Статьи</a></li>
+                    <li><a href="#"><i class="fas fa-bookmark"></i> Избранное</a></li>
+                    <li><a href="#"><i class="fas fa-search"></i> Поиск</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Читалка редких книг и специализированных статей</h2>
+            <p>Доступ к уникальной коллекции редких изданий и экспертных статей по различным темам. Читайте в удобном формате, сохраняйте избранное без регистрации.</p>
+            <button class="cta-button">Начать чтение <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Featured Books -->
+        <section>
+            <h2 class="section-title"><i class="fas fa-star"></i> Избранные книги</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-img" style="background-color: #e3f2fd;">
+                        <i class="fas fa-book" style="color: #2196f3;"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 1897 г.</span>
+                            <span><i class="far fa-file"></i> 340 стр.</span>
+                        </div>
+                        <div class="card-tag">Художественная литература</div>
+                        <h3>Дракула</h3>
+                        <p>Первое издание романа Брэма Стокера в переводе на русский язык 1902 года.</p>
+                        <button class="card-button">Читать сейчас</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-color: #fff3e0;">
+                        <i class="fas fa-book" style="color: #ff9800;"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 1924 г.</span>
+                            <span><i class="far fa-file"></i> 210 стр.</span>
+                        </div>
+                        <div class="card-tag">Научная литература</div>
+                        <h3>Основы квантовой механики</h3>
+                        <p>Редкое издание первых лекций по квантовой механике с авторскими пометками.</p>
+                        <button class="card-button">Читать сейчас</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-color: #f3e5f5;">
+                        <i class="fas fa-book" style="color: #9c27b0;"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 1843 г.</span>
+                            <span><i class="far fa-file"></i> 120 стр.</span>
+                        </div>
+                        <div class="card-tag">Поэзия</div>
+                        <h3>Сборник стихов А.С. Пушкина</h3>
+                        <p>Прижизненное издание стихотворений Пушкина с авторской правкой.</p>
+                        <button class="card-button">Читать сейчас</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Articles -->
+        <section>
+            <h2 class="section-title"><i class="fas fa-newspaper"></i> Специализированные статьи</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-img" style="background-color: #e8f5e9;">
+                        <i class="fas fa-file-alt" style="color: #4caf50;"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 2023 г.</span>
+                            <span><i class="far fa-clock"></i> 15 мин.</span>
+                        </div>
+                        <div class="card-tag">История искусств</div>
+                        <h3>Символизм в русской иконописи XIV века</h3>
+                        <p>Анализ символических элементов в редких иконах северных школ иконописи.</p>
+                        <button class="card-button">Читать статью</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-color: #e1f5fe;">
+                        <i class="fas fa-file-alt" style="color: #03a9f4;"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 2022 г.</span>
+                            <span><i class="far fa-clock"></i> 25 мин.</span>
+                        </div>
+                        <div class="card-tag">Лингвистика</div>
+                        <h3>Диалекты древнерусского языка</h3>
+                        <p>Исследование малоизученных диалектов на основе берестяных грамот.</p>
+                        <button class="card-button">Читать статью</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img" style="background-color: #fff8e1;">
+                        <i class="fas fa-file-alt" style="color: #ffb300;"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 2024 г.</span>
+                            <span><i class="far fa-clock"></i> 12 мин.</span>
+                        </div>
+                        <div class="card-tag">Археология</div>
+                        <h3>Новые находки в Сибирском регионе</h3>
+                        <p>Обзор артефактов, обнаруженных в ходе последних экспедиций.</p>
+                        <button class="card-button">Читать статью</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Reader Section -->
+        <section class="reader-section">
+            <div class="reader-header">
+                <h2 class="section-title" style="margin: 0;"><i class="fas fa-book-reader"></i> Читалка</h2>
+                <div class="reader-controls">
+                    <button title="Уменьшить шрифт"><i class="fas fa-font"></i></button>
+                    <button title="Увеличить шрифт"><i class="fas fa-font"></i><i class="fas fa-plus" style="font-size: 10px; margin-left: -5px;"></i></button>
+                    <button title="Ночной режим"><i class="fas fa-moon"></i></button>
+                    <button title="Сохранить в избранное"><i class="far fa-bookmark"></i></button>
+                </div>
+            </div>
+            
+            <div class="reader-content">
+                <h3>Глава I. Приезд в Трансильванию</h3>
+                <p>3 мая. Бухарест — наконец-то добрался. Выезжаю завтра рано утром. Думаю, что мое письмо застанет тебя раньше меня. Завтра вечером я буду в коляске моего нового знакомца.</p>
+                <p>4 мая. Проезжал через ущелье Борго. Местность прекрасная, но совершенно дикая. Кругом высокие горы, покрытые лесом. Изредка встречаются развалины замков на вершинах утесов. Вид мрачный, но величественный.</p>
+                <p>К вечеру добрался до замка графа Дракулы. Сам граф встретил меня у ворот. Высокий, худощавый старик с пронзительными глазами и длинными седыми усами. Одет во все черное. Производит впечатление человека, привыкшего к власти.</p>
+                <p>Замок огромен, но в запустении. Многие комнаты заперты. Мне отвели помещение в одной из башен. Из окна открывается вид на глубокое ущелье и темный лес. Ночью слышен вой волков.</p>
+                <p>Граф предупредил, чтобы я не покидал свою комнату после захода солнца. Говорит, что в этих местах небезопасно. Странное предостережение...</p>
+            </div>
+            
+            <div class="reader-footer">
+                <div>
+                    <div>Прогресс чтения: 65%</div>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+                <div>Время чтения: ~15 мин.</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>О нас</h3>
+                    <p>Мы сохраняем и предоставляем доступ к редким книгам и специализированным статьям для исследователей, студентов и всех ценителей знаний. Читайте без регистрации!</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Коллекции</h3>
+                    <ul>
+                        <li><a href="#">Художественная литература</a></li>
+                        <li><a href="#">Научные труды</a></li>
+                        <li><a href="#">Исторические документы</a></li>
+                        <li><a href="#">Искусствоведение</a></li>
+                        <li><a href="#">Технические статьи</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contact@rarebooks.ru</li>
+                        <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, ул. Книжная, д. 10</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Редкие книги & статьи. Все права защищены.</p>
+                <p>Доступно всем без регистрации</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const nav = document.querySelector('nav');
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Reader controls functionality
+        const readerContent = document.querySelector('.reader-content');
+        const fontSizeButtons = document.querySelectorAll('.reader-controls button');
+        const nightModeButton = document.querySelector('.reader-controls button:nth-child(3)');
+        const bookmarkButton = document.querySelector('.reader-controls button:nth-child(4)');
+        
+        // Font size controls
+        fontSizeButtons[0].addEventListener('click', function() {
+            let currentSize = parseInt(window.getComputedStyle(readerContent).fontSize);
+            if (currentSize > 14) {
+                readerContent.style.fontSize = (currentSize - 2) + 'px';
+            }
+        });
+        
+        fontSizeButtons[1].addEventListener('click', function() {
+            let currentSize = parseInt(window.getComputedStyle(readerContent).fontSize);
+            if (currentSize < 26) {
+                readerContent.style.fontSize = (currentSize + 2) + 'px';
+            }
+        });
+        
+        // Night mode toggle
+        nightModeButton.addEventListener('click', function() {
+            readerContent.classList.toggle('night-mode');
+            if (readerContent.classList.contains('night-mode')) {
+                readerContent.style.backgroundColor = '#2c3e50';
+                readerContent.style.color = '#ecf0f1';
+                nightModeButton.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                readerContent.style.backgroundColor = '#f8f9fa';
+                readerContent.style.color = '#333';
+                nightModeButton.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+        
+        // Bookmark toggle
+        bookmarkButton.addEventListener('click', function() {
+            bookmarkButton.classList.toggle('active');
+            if (bookmarkButton.classList.contains('active')) {
+                bookmarkButton.innerHTML = '<i class="fas fa-bookmark"></i>';
+                bookmarkButton.style.color = '#e74c3c';
+                alert('Книга добавлена в избранное!');
+            } else {
+                bookmarkButton.innerHTML = '<i class="far fa-bookmark"></i>';
+                bookmarkButton.style.color = '';
+            }
+        });
+        
+        // Card buttons functionality
+        document.querySelectorAll('.card-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const cardTitle = this.closest('.card').querySelector('h3').textContent;
+                alert(`Начинаем чтение: "${cardTitle}"`);
+                
+                // Scroll to reader section
+                document.querySelector('.reader-section').scrollIntoView({ behavior: 'smooth' });
+                
+                // Update reader content based on selected book/article
+                updateReaderContent(cardTitle);
+            });
+        });
+        
+        // CTA button functionality
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            alert('Все материалы доступны без регистрации! Начинайте чтение прямо сейчас.');
+        });
+        
+        // Function to update reader content
+        function updateReaderContent(title) {
+            const readerHeader = document.querySelector('.reader-header .section-title');
+            readerHeader.innerHTML = `<i class="fas fa-book-reader"></i> Читалка: ${title}`;
+            
+            // In a real app, this would fetch content from a server
+            const sampleContent = `
+                <h3>Начало произведения</h3>
+                <p>Вы начали чтение "${title}". В полной версии приложения здесь будет отображаться содержание выбранной книги или статьи.</p>
+                <p>Вы можете использовать элементы управления выше для настройки размера шрифта, переключения ночного режима и добавления в закладки.</p>
+                <p>Все функции доступны без регистрации и входа в систему.</p>
+            `;
+            
+            document.querySelector('.reader-content').innerHTML = sampleContent;
+        }
+        
+        // Handle window resize for responsive menu
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.querySelector('nav').style.display = 'block';
+            } else {
+                document.querySelector('nav').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,4 +1,14 @@
-reader-site/
-├── index.html          (главный файл сайта)
-├── README.md           (описание проекта)
-└── .nojekyll           (пустой файл, если нужно)
+# Инициализируем репозиторий
+git init
+
+# Добавляем все файлы
+git add .
+
+# Делаем первый коммит
+git commit -m "First commit: Сайт Читалка редких книг"
+
+# Подключаем удалённый репозиторий GitHub
+git remote add origin https://github.com/ВАШ_ЛОГИН/reader-rare-books.git
+
+# Отправляем на GitHub
+git push -u origin main
